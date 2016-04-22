@@ -1,0 +1,20 @@
+{
+    "name": "xiaokus/push",
+    "authors": [
+        {
+            "name": "377123",
+            "email": "53623075@qq.com"
+        }
+    ],
+    "require": {
+    	"php": ">=5.4.0"
+    },
+    "autoload": {
+        "classmap": [
+          "src/"
+        ],
+        "psr-0": {
+          "xiaokus\\push\\": "src/"
+        }
+  	}
+}
