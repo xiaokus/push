@@ -32,9 +32,11 @@ class sdk {
      * @return type
      */
    public  function sendMessage($user_id, $option,$alert = '', $badge = 0, $available = 1) {
-        $this->sendAndroidCustomizedcast($user_id,$option,$alert,$available);
-        $this->sendIOSCustomizedcast($user_id,$option,$alert,$available);
-        return true;
+       $info= $this->sendAndroidCustomizedcast($user_id,$option,$alert,$available);
+       $message=$this->sendIOSCustomizedcast($user_id,$option,$alert,$available);
+       $result['android']=$info;
+       $result['ios']=$message;
+      return $result;
     }
     /**
     *精准推送
@@ -53,13 +55,14 @@ class sdk {
             $customizedcast->setPredefinedKeyValue("ticker",$alert);
             $customizedcast->setPredefinedKeyValue("title", $alert);
             $customizedcast->setPredefinedKeyValue("text", $alert);
+            $customizedcast->setPredefinedKeyValue("custom","");
             $customizedcast->setPredefinedKeyValue("production_mode", $this->debug);
             $customizedcast->setPredefinedKeyValue("after_open", "go_app");
             foreach ($option as $key => $value) {
                     $customizedcast->setExtraField($key, $value); 
             }
             return $customizedcast->send();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
@@ -94,7 +97,7 @@ class sdk {
             //print("Sending customizedcast notification, please wait...\r\n");
             return $customizedcast->send();
             //print("Sent SUCCESS\r\n");
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // print("Caught exception: " . $e->getMessage());
             return $e->getMessage();
         }
