@@ -88,7 +88,7 @@ class sdk {
             $customizedcast->setPredefinedKeyValue("alert", $alert);
             $customizedcast->setPredefinedKeyValue("badge", $badge);
             $customizedcast->setPredefinedKeyValue("sound", $sound);
-            // Set 'production_mode' to 'true' if your app is under production mode
+            $customizedcast->setPredefinedKeyValue("alias_type", "iOS");
             $customizedcast->setPredefinedKeyValue("production_mode", $this->debug);
             foreach ($option as $key => $value) {
                     $customizedcast->setCustomizedField($key, $value); 
