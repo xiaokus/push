@@ -33,7 +33,7 @@ class sdk {
      */
    public  function sendMessage($user_id, $option,$alert = '', $badge = 0, $available = 1) {
        $info= $this->sendAndroidCustomizedcast($user_id,$option,$alert,$available);
-       $message=$this->sendIOSCustomizedcast($user_id,$option,$alert,$available);
+       $message=$this->sendIOSCustomizedcast($user_id,$option,$alert,$available,1,'chime');
        $result['android']=$info;
        $result['ios']=$message;
       return $result;
