@@ -34,7 +34,7 @@ class sdk {
    public  function sendMessage($user_id, $option,$title,$alert = '', $badge = 0, $available = 1) {
        $info= $this->sendAndroidCustomizedcast($user_id,$option,$title,$alert,$available);
        $iosalert=['body'=>$alert,'title'=>$title];
-       $message=$this->sendIOSCustomizedcast($user_id,$option,json_encode($iosalert),$available,1,'chime');
+       $message=$this->sendIOSCustomizedcast($user_id,$option,$iosalert,$available,1,'chime');
        $result['android']=$info;
        $result['ios']=$message;
       return $result;
