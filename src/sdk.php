@@ -31,9 +31,10 @@ class sdk {
      * @param type $sound  是否有声音
      * @return type
      */
-   public  function sendMessage($user_id, $option,$alert = '', $badge = 0, $available = 1) {
-       $info= $this->sendAndroidCustomizedcast($user_id,$option,$alert,$available);
-       $message=$this->sendIOSCustomizedcast($user_id,$option,$alert,$available,1,'chime');
+   public  function sendMessage($user_id, $option,$title,$alert = '', $badge = 0, $available = 1) {
+       $info= $this->sendAndroidCustomizedcast($user_id,$option,$title,$alert,$available);
+       $iosalert=['body'=>$alert,'title'=>$title];
+       $message=$this->sendIOSCustomizedcast($user_id,$option,json_encode($iosalert),$available,1,'chime');
        $result['android']=$info;
        $result['ios']=$message;
       return $result;
@@ -41,7 +42,7 @@ class sdk {
     /**
     *精准推送
     */
-   public function sendAndroidCustomizedcast($user_id, $option=[],$alert = '',$available = 1) {
+   public function sendAndroidCustomizedcast($user_id, $option=[],$title,$alert = '',$available = 1) {
         try {
             $customizedcast = new AndroidCustomizedcast();
             $customizedcast->setAppMasterSecret($this->aappMasterSecret);
@@ -53,7 +54,7 @@ class sdk {
             }
             $customizedcast->setPredefinedKeyValue("alias_type",       "android");
             $customizedcast->setPredefinedKeyValue("ticker",$alert);
-            $customizedcast->setPredefinedKeyValue("title", $alert);
+            $customizedcast->setPredefinedKeyValue("title", $title);
             $customizedcast->setPredefinedKeyValue("text", $alert);
             $customizedcast->setPredefinedKeyValue("custom","");
             $customizedcast->setPredefinedKeyValue("production_mode", $this->debug);
